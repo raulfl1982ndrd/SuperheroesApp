@@ -2,6 +2,6 @@ package com.example.superheroesapp.data
 
 import com.google.gson.annotations.SerializedName
 
-data class SuperheroeResponse (
+data class SuperheroResponse (
     @SerializedName("name") val name:String){
 }
