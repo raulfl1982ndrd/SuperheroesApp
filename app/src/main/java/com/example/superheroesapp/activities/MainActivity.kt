@@ -21,6 +21,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
+    var superHeroList: List<SuperheroResponse.Superhero> = emptyList()
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: SuperheroAdapter
 
@@ -29,8 +30,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        adapter = SuperheroAdapter ()
-
+        adapter = SuperheroAdapter ( superHeroList){position->
+                navigateToDetail(superHeroList[position])
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         /*binding.searchButton.setOnClickListener {
@@ -42,6 +44,13 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.visibility = View.GONE
         binding.emptyPlaceholder.visibility = View.VISIBLE
     }
+
+    private fun navigateToDetail(superhero: SuperheroResponse.Superhero) {
+        val intent: Intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_SUPERHERO_ID, superhero.id)
+        startActivity(intent)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -81,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                     binding.progress.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.emptyPlaceholder.visibility = View.GONE
+                    superHeroList = result.results
                     adapter.updateData(result.results)
                 }
                 //Log.i("HTTP", "${result.results}")
@@ -99,4 +109,7 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+
+
 }

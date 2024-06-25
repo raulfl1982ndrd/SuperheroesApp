@@ -8,6 +8,7 @@ data class SuperheroResponse (
     @SerializedName("results")val results: List<Superhero>
 ){
     data class Superhero (
+        @SerializedName("id") val id:String,
         @SerializedName("name") val name:String,
         @SerializedName("image") val image: Image){
     }
