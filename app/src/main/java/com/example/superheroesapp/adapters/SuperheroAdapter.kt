@@ -20,7 +20,7 @@ class SuperheroAdapter (private var dataSet: List<Superhero> = emptyList(),
         val superheroe = dataSet[position]
         holder.render(dataSet[position])
         holder.itemView.setOnClickListener {
-            onItemClickListener(position)
+            onItemClickListener(holder.adapterPosition)
         }
     }
 

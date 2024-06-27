@@ -1,10 +1,10 @@
 package com.example.superheroesapp.activities
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,11 +13,10 @@ import com.example.superheroesapp.adapters.SuperheroAdapter
 import com.example.superheroesapp.data.SuperheroApiService
 import com.example.superheroesapp.data.SuperheroResponse
 import com.example.superheroesapp.databinding.ActivityMainBinding
+import com.example.superheroesapp.utils.RetrofitProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
@@ -39,21 +38,17 @@ class MainActivity : AppCompatActivity() {
             val searchText = binding.searchEditText.text.toString()
             searchSuperheroes(searchText)
         }*/
-        //searchByName("a")
+        searchByName("a")
         binding.progress.visibility = View.GONE
         binding.recyclerView.visibility = View.GONE
         binding.emptyPlaceholder.visibility = View.VISIBLE
     }
 
-    private fun navigateToDetail(superhero: SuperheroResponse.Superhero) {
-        val intent: Intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_SUPERHERO_ID, superhero.id)
-        startActivity(intent)
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.menu_activity_main, menu)
 
         initSearchView(menu?.findItem(R.id.menu_search))
 
@@ -66,8 +61,10 @@ class MainActivity : AppCompatActivity() {
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    //searchSuperheroes(query!!)
-                    searchByName(query!!)
+                    if (query!=  null) {
+                        //searchSuperheroes(query!!)
+                        searchByName(query!!)
+                    }
                     searchView.clearFocus()
                     return true
                 }
@@ -78,20 +75,28 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
-
+    private fun navigateToDetail(superhero: SuperheroResponse.Superhero) {
+        Toast.makeText(this,superhero.name,Toast.LENGTH_LONG).show()
+        val intent: Intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_SUPERHERO_ID, superhero.id)
+        startActivity(intent)
+    }
     private fun searchByName(query: String){
         binding.progress.visibility = View.VISIBLE
         // Llamada en segundo plano
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val apiService = getRetrofit().create(SuperheroApiService::class.java)
+                val apiService = RetrofitProvider.getSuperheroApiService()
                 val result = apiService.findSuperheroesByName(query)
                 runOnUiThread {
                     binding.progress.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.emptyPlaceholder.visibility = View.GONE
+                    if(result.response == "success")
                     superHeroList = result.results
-                    adapter.updateData(result.results)
+                    else superHeroList = emptyList()
+
+                    adapter.updateData(superHeroList)
                 }
                 //Log.i("HTTP", "${result.results}")
             } catch (e: Exception) {
@@ -99,17 +104,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun getRetrofit(): Retrofit {
-        /*val interceptor = HttpLoggingInterceptor()
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
-        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()*/
-        return Retrofit.Builder()
-            .baseUrl("https://superheroapi.com/api/7252591128153666/")
-            //.client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-
 
 }
