@@ -32,7 +32,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
+        supportActionBar?.hide()
         val id: Int = intent.getIntExtra(EXTRA_SUPERHERO_ID,-1)!!
         getSuperheroById(id)
 
@@ -41,6 +41,32 @@ class DetailActivity : AppCompatActivity() {
     private fun loadData() {
         binding.nameDetailTextView.text = superHero.name
         Picasso.get().load(superHero.image.url).into(binding.photoImageView)
+
+        // Biography
+        binding.content.realNameTextView.text = superHero.biography.realName
+        binding.content.alterEgosTextView.text = superHero.biography.alterEgos
+        binding.content.publisherTextView.text = superHero.biography.publisher
+        binding.content.placeOfBirthTextView.text = superHero.biography.placeOfBirth
+        binding.content.firstAppearanceTextView.text = superHero.biography.firstApperance
+        binding.content.publisherTextView.text = superHero.biography.publisher
+        binding.content.alignmentTextView.text = superHero.biography.alignment
+
+        if (superHero.biography.alignment == "good") {
+            binding.content.alignmentTextView.setTextColor(getResources().getColor(R.color.good_color))
+        } else {
+            binding.content.alignmentTextView.setTextColor(getResources().getColor(R.color.evil_color))
+        }
+        // Work
+        binding.content.occupationTextView.text = superHero.work.occupation
+        binding.content.baseTextView.text = superHero.work.base
+        // Stats
+        binding.content.intelligenceStatBar.progress = superHero.stats.intelligence
+        binding.content.strengthStatBar.progress = superHero.stats.strength
+        binding.content.speedStatBar.progress = superHero.stats.speed
+        binding.content.durabilityStatBar.progress = superHero.stats.durability
+        binding.content.powerStatBar.progress = superHero.stats.power
+        binding.content.combatStatBar.progress = superHero.stats.combat
+        //binding.content.radarChart.data.dataSets =
     }
     fun getSuperheroById(id:Int){
 
