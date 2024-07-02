@@ -237,7 +237,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -245,9 +245,9 @@
                 <com.github.mikephil.charting.charts.RadarChart
                     android:id="@+id/radarChart"
                     android:layout_width="match_parent"
-                    android:layout_height="300sp" />
+                    android:layout_height="match_parent" />
 
-            </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
 

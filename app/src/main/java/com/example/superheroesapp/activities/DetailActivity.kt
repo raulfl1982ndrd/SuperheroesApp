@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import com.example.superheroesapp.R
 import com.example.superheroesapp.data.SuperheroResponse
 import com.example.superheroesapp.databinding.ActivityDetailBinding
@@ -15,7 +16,9 @@ import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
+import com.github.mikephil.charting.utils.Utils
 import com.squareup.picasso.Picasso
 import com.xxmassdeveloper.mpchartexample.custom.RadarMarkerView
 import kotlinx.coroutines.CoroutineScope
@@ -28,6 +31,12 @@ class DetailActivity : AppCompatActivity() {
     lateinit var nameDetailTextView: TextView
     lateinit var superHero:SuperheroResponse.Superhero
     private var chart: RadarChart? = null
+
+    /**
+     * width of the main web lines
+     */
+    private var mWebLineWidth = 2.5f
+
     companion object {
         const val EXTRA_SUPERHERO_ID:String  = "EXTRA_SUPERHERO_ID"
     }
@@ -101,28 +110,27 @@ class DetailActivity : AppCompatActivity() {
         var cnt: Int = 5;
 
         var entries1 : ArrayList<RadarEntry> = ArrayList<RadarEntry>();
-        var entries2 : ArrayList<RadarEntry>  = ArrayList<RadarEntry>();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
+            entries1.add(RadarEntry(superHero.stats.intelligence.toFloat()))
+            entries1.add(RadarEntry(superHero.stats.strength.toFloat()))
+            entries1.add(RadarEntry(superHero.stats.speed.toFloat()))
+            entries1.add(RadarEntry(superHero.stats.durability.toFloat()))
+            entries1.add(RadarEntry(superHero.stats.power.toFloat()))
+            entries1.add(RadarEntry(superHero.stats.combat.toFloat()))
 
-        for ( i in 0..< cnt) {
-            var val1 : Float =  ((Math.random() * mul) + min).toFloat()
-            entries1.add(RadarEntry(val1))
 
-            var val2 : Float = ((Math.random() * mul) + min).toFloat()
-            entries2.add(RadarEntry(val2));
-        }
 
-        var set1 : RadarDataSet =  RadarDataSet(entries1, "Last Week");
-        set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(Color.rgb(103, 110, 129));
+        var set1 : RadarDataSet =  RadarDataSet(entries1, "Estadisticas");
+        set1.setColor(Color.rgb(0, 0, 129));
+        set1.setFillColor(Color.rgb(0, 0, 129));
         set1.setDrawFilled(true);
         set1.setFillAlpha(180);
         set1.setLineWidth(2f);
         set1.setDrawHighlightCircleEnabled(true);
         set1.setDrawHighlightIndicators(false);
-
+/*
         var set2 : RadarDataSet =  RadarDataSet(entries2, "Last Week");
         set2.setColor(Color.rgb(121, 162, 175));
         set2.setFillColor(Color.rgb(121, 162, 175));
@@ -131,19 +139,39 @@ class DetailActivity : AppCompatActivity() {
         set2.setLineWidth(2f);
         set2.setDrawHighlightCircleEnabled(true);
         set2.setDrawHighlightIndicators(false);
-
+*/
         var sets : ArrayList<IRadarDataSet> = ArrayList<IRadarDataSet>();
         sets.add(set1);
-        sets.add(set2);
+       // sets.add(set2);
 
         var data : RadarData =  RadarData(sets);
         //data.setValueTypeface(tfLight);
-        data.setValueTextSize(8f);
+        data.setValueTextSize(6f);
         data.setDrawValues(false);
         data.setValueTextColor(Color.WHITE);
 
         chart?.setData(data);
         chart?.invalidate();
+
+        // Etiquetas del eje X
+        val labels = arrayOf("Intelligence", "Strength", "Speed", "Durability", "Power", "Combat")
+        val xAxis = binding.content.radarChart.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        xAxis.textSize = 14f
+
+        // Configuración del eje Y
+        val yAxis = binding.content.radarChart.yAxis
+        yAxis.axisMinimum = 0f
+        yAxis.axisMaximum = 100f
+        yAxis.textSize = 14f
+
+        binding.content.radarChart.description.isEnabled = false
+        binding.content.radarChart.legend.isEnabled = false
+        binding.content.radarChart.setTouchEnabled(false)
+        binding.content.radarChart.invalidate() // refrescar la gráfica
+        binding.content.radarChart.minimumWidth = 600
+        binding.content.radarChart.minimumHeight = 600
+
 
     }
 
@@ -173,5 +201,4 @@ class DetailActivity : AppCompatActivity() {
         }
 
     }
-
 }
