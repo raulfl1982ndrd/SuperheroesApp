@@ -31,7 +31,14 @@ class DetailActivity : AppCompatActivity() {
     lateinit var nameDetailTextView: TextView
     lateinit var superHero:SuperheroResponse.Superhero
     private var chart: RadarChart? = null
-
+/*    val progressValueIntelligence = findViewById<TextView>(R.id.progressValueIntelligence)
+    val progressValueStrength = findViewById<TextView>(R.id.progressValueStrength)
+    val progressValueSpeed = findViewById<TextView>(R.id.progressValueSpeed)
+    val progressValueDurability = findViewById<TextView>(R.id.progressValueDurability)
+    val progressValuePower = findViewById<TextView>(R.id.progressValuePower)
+    val progressValueCombat = findViewById<TextView>(R.id.progressValueCombat)
+*/
+    val max = 100
     /**
      * width of the main web lines
      */
@@ -80,6 +87,19 @@ class DetailActivity : AppCompatActivity() {
         binding.content.powerStatBar.progress = superHero.stats.power
         binding.content.combatStatBar.progress = superHero.stats.combat
 
+        var valueIntelligence = superHero.stats.intelligence
+        var valueStrength = superHero.stats.strength
+        var valueSpeed = superHero.stats.speed
+        var valueDurability = superHero.stats.durability
+        var valuePower = superHero.stats.power
+        var valueCombat = superHero.stats.combat
+
+        binding.content.progressValueIntelligence.text = "$valueIntelligence/$max"
+        binding.content.progressValueStrength.text = "$valueStrength/$max"
+        binding.content.progressValueSpeed.text = "$valueSpeed/$max"
+        binding.content.progressValueDurability.text = "$valueDurability/$max"
+        binding.content.progressValuePower.text = "$valuePower/$max"
+        binding.content.progressValueCombat.text = "$valueCombat/$max"
 
         chart = binding.content.radarChart !!
 

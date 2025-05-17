@@ -244,8 +244,9 @@
 
                 <com.github.mikephil.charting.charts.RadarChart
                     android:id="@+id/radarChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"/>
 
             </FrameLayout>
 
@@ -264,71 +265,158 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Intelligence"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Intelligence"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/progressValueIntelligence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="80/100"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/intelligenceStatBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressTint="@color/intelligence_color"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Strength"/>
-
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Strength"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/progressValueStrength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="80/100"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/strengthStatBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressTint="@color/strength_color"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Speed"/>
-
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Speed"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/progressValueSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="80/100"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/speedStatBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressTint="@color/speed_color" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Durability"/>
-
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Durability"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/progressValueDurability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="80/100"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/durabilityStatBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressTint="@color/durability_color"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Power"/>
-
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Power"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/progressValuePower"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="80/100"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/powerStatBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressTint="@color/power_color"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Combat"/>
-
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Combat"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/progressValueCombat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="80/100"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <ProgressBar
                 android:id="@+id/combatStatBar"
                 style="?android:attr/progressBarStyleHorizontal"

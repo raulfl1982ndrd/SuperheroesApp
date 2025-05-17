@@ -19,12 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="16sp"
+            android:paddingTop="0sp"
             android:layout_gravity="center_vertical">
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/photoImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerRounded"
                 />
 
             <TextView
@@ -36,15 +40,19 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16sp"
+                android:padding="0sp"
+                android:layout_margin="16dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <include android:id="@+id/content" layout="@layout/detail_content" />
+                <include
+                    android:id="@+id/content"
+                    layout="@layout/detail_content" />
 
             </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
