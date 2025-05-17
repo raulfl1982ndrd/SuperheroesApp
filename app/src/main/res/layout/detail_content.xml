@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="32sp">
+
     <FrameLayout
         android:id="@+id/progress"
         android:layout_width="match_parent"
@@ -18,20 +19,24 @@
             android:layout_height="64dp"
             android:layout_gravity="center"/>
     </FrameLayout>
-
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0sp"
+        android:layout_margin="16dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_marginLeft="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Biography:"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginVertical="8dp"/>
+            android:textSize="18sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -246,7 +251,7 @@
                     android:id="@+id/radarChart"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp"/>
+                    android:layout_marginLeft="30dp"/>
 
             </FrameLayout>
 
@@ -426,5 +431,6 @@
         </LinearLayout>
 
     </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.cardview.widget.CardView>
 </FrameLayout>

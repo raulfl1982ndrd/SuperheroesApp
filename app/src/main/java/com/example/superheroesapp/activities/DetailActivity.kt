@@ -3,6 +3,7 @@ package com.example.superheroesapp.activities
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -183,7 +184,7 @@ class DetailActivity : AppCompatActivity() {
         val yAxis = binding.content.radarChart.yAxis
         yAxis.axisMinimum = 0f
         yAxis.axisMaximum = 100f
-        yAxis.textSize = 14f
+        yAxis.textSize = 10f
 
         binding.content.radarChart.description.isEnabled = false
         binding.content.radarChart.legend.isEnabled = false
@@ -197,7 +198,7 @@ class DetailActivity : AppCompatActivity() {
 
     fun getSuperheroById(id:Int){
 
-        //binding.progress.visibility = View.VISIBLE
+        binding.content.progress.visibility = View.VISIBLE
         // Llamada en segundo plano
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -213,6 +214,7 @@ class DetailActivity : AppCompatActivity() {
                     else superHero = emptyList()*/
                     Toast.makeText(this@DetailActivity,result.name, Toast.LENGTH_LONG).show()
                     loadData()
+                    binding.content.progress.visibility = View.GONE
                 }
                 Log.i("HTTP", "${result.id}-->${result.name}")
             } catch (e: Exception) {
